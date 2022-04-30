@@ -7,10 +7,11 @@ export interface Footprint {
 }
 
 export class FootprintEstimator {
-  get conventionalVehicleFootprint() {
+  conventionalVehicleFootprint(params: { totalDistanceKm: number }) {
+    const { totalDistanceKm } = params
     return {
       productionKgCO2e: 3740,
-      usageKgCO2e: 18260
+      usageKgCO2e: 15840 / 150000 * totalDistanceKm
     }
   }
 
