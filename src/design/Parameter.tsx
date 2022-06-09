@@ -1,9 +1,9 @@
 export function Parameter(props: { title: string, children: React.ReactNode }) {
-  return <div className="flex flex-row gap-2">
+  return <div className="flex flex-row items-center gap-2">
     <div>
       {props.title}
     </div>
-    <div>
+    <div className="flex-grow">
       {props.children}
     </div>
   </div>

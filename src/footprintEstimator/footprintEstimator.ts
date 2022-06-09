@@ -5,8 +5,11 @@ import { Carbone4Gasoline2020 } from "./model/carbone4Gasoline2020"
 import { VehicleFootprintModel } from "./vehicleFootprintModel"
 
 export interface Footprint {
-  productionKgCO2e: number
+  productionWithoutBatteryKgCO2e: number
+  batteryProductionKgCO2e: number
+  endOfLifeKgCO2e: number
   usageKgCO2e: number
+  totalKgCO2e: number
 }
 
 export class FootprintEstimator {
@@ -51,14 +54,22 @@ export class FootprintEstimator {
 
     const kgCO2VehiclePerKg = model.productionkgCO2PerKg + model.endOfLifekgCO2PerKg
 
-    let productionKgCO2e = kgCO2VehiclePerKg * vehicle.weightUnladenKg
+    let batteryProductionKgCO2e: number
     if (model.kgCO2BatteryPerKWh && vehicle.batteryCapacitykWh) {
-      productionKgCO2e += model.kgCO2BatteryPerKWh * vehicle.batteryCapacitykWh
+      batteryProductionKgCO2e = model.kgCO2BatteryPerKWh * vehicle.batteryCapacitykWh
+    } else {
+      batteryProductionKgCO2e = 0
     }
 
+    const result = {
+      productionWithoutBatteryKgCO2e: Math.round(kgCO2VehiclePerKg * vehicle.weightUnladenKg),
+      batteryProductionKgCO2e: Math.round(batteryProductionKgCO2e),
+      endOfLifeKgCO2e: Math.round(model.endOfLifekgCO2PerKg * vehicle.weightUnladenKg),
+      usageKgCO2e: Math.round(this.computeUsageKgCO2e(params)),
+    }
     return {
-      productionKgCO2e: Math.round(productionKgCO2e),
-      usageKgCO2e: Math.round(this.computeUsageKgCO2e(params))
+      ...result,
+      totalKgCO2e: result.productionWithoutBatteryKgCO2e + result.batteryProductionKgCO2e + result.endOfLifeKgCO2e + result.usageKgCO2e
     }
   }
 }

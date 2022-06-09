@@ -47,6 +47,11 @@ export function LineChart(props: {
           text: 'Total distance in the life of the vehicle (km)'
         }
       }
+    },
+    plugins: {
+      legend: {
+        display: false
+      }
     }
   }
 
@@ -62,7 +67,7 @@ export function LineChart(props: {
         label: vehicle.name,
         data: distances.map(totalDistanceKm => {
           const footprint = footprintEstimator.estimate({ vehicle, totalDistanceKm, country })
-          return footprint.productionKgCO2e + footprint.usageKgCO2e
+          return footprint.totalKgCO2e
         }),
         backgroundColor: colorFromEnergy(vehicle.energy),
         borderColor: colorFromEnergy(vehicle.energy)

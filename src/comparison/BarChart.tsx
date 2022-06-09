@@ -57,10 +57,13 @@ export function BarChart(props: {
         callbacks: {
           beforeBody: (context: any) => {
             const footprint = footprints[context[0].dataIndex]
-            const totalEmissions = footprint.footprint.productionKgCO2e + footprint.footprint.usageKgCO2e
+            const totalEmissions = footprint.footprint.totalKgCO2e
             return `Total emissions of the vehicle: ${totalEmissions.toLocaleString()} kgCO2e`
           }
         }
+      },
+      legend: {
+        display: false
       }
     }
   };
@@ -68,22 +71,34 @@ export function BarChart(props: {
   const labels = footprints.map(fp => fp.name)
   const ids = footprints.map(fp => fp.name)
 
-  const productionData = footprints.map(fp => fp.footprint.productionKgCO2e)
+  const productionData = footprints.map(fp => fp.footprint.productionWithoutBatteryKgCO2e)
+  const batteryProductionData = footprints.map(fp => fp.footprint.batteryProductionKgCO2e)
   const usageData = footprints.map(fp => fp.footprint.usageKgCO2e)
+  const endOfLifeData = footprints.map(fp => fp.footprint.endOfLifeKgCO2e)
 
   const data = {
     labels,
     ids,
     datasets: [
       {
-        label: 'Production',
+        label: 'Production (without battery)',
         data: productionData,
         backgroundColor: 'rgb(255, 99, 132)',
+      },
+      {
+        label: 'Battery production',
+        data: batteryProductionData,
+        backgroundColor: 'rgb(255, 160, 190)',
       },
       {
         label: 'Usage',
         data: usageData,
         backgroundColor: 'rgb(75, 192, 192)',
+      },
+      {
+        label: 'End of life',
+        data: endOfLifeData,
+        backgroundColor: 'rgb(150, 11, 190)',
       }
     ],
   };
@@ -91,9 +106,9 @@ export function BarChart(props: {
   return <div
     style={props.style} className={props.className}>
     <Parameter title='Total distance (km)'>
-      <div className="flex flex-row gap-2">
+      <div className="flex flex-row gap-2 w-full">
         <Slider
-          className="w-96"
+          className="flex-grow"
           min={0}
           max={500000}
           step={10000}
