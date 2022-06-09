@@ -1,10 +1,10 @@
 import './App.css';
-import { Comparison } from './comparison/Comparison';
+import { LandingPage } from './LandingPage';
 
 function App() {
   return (
     <div className="App">
-      <Comparison />
+      <LandingPage />
     </div>
   );
 }

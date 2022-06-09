@@ -1,10 +1,19 @@
-import { Select } from "antd"
-import React, { useState } from "react"
+import { Select, Typography } from "antd"
+import React, { ReactNode, useState } from "react"
 import { Country } from "../db/country"
 import { allVehicles } from "../db/vehicle"
 import { Parameter } from "../design/Parameter"
 import { BarChart } from "./BarChart"
 import { LineChart } from "./LineChart"
+
+function ComparisonSection(props: { title: string, children: ReactNode }) {
+  const { Title } = Typography
+
+  return <div>
+    <Title level={2}>{props.title}</Title>
+    {props.children}
+  </div>
+}
 
 export function Comparison() {
   const [country, setCountry] = useState<Country>(Country.France)
@@ -40,12 +49,18 @@ export function Comparison() {
       </div>
     </div>
     <div className="grid grid-cols-2 gap-4">
-      <BarChart
-        country={country}
-        vehicles={allVehicles} />
-      <LineChart
-        country={country}
-        vehicles={allVehicles} />
+      <ComparisonSection
+        title="Production vs Usage">
+        <BarChart
+          country={country}
+          vehicles={allVehicles} />
+      </ComparisonSection>
+      <ComparisonSection
+        title="Emissions over time">
+        <LineChart
+          country={country}
+          vehicles={allVehicles} />
+      </ComparisonSection>
     </div>
   </div >
 }
