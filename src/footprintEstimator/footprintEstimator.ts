@@ -10,23 +10,6 @@ export interface Footprint {
 }
 
 export class FootprintEstimator {
-  conventionalVehicleFootprint(params: { totalDistanceKm: number }) {
-    const { totalDistanceKm } = params
-
-    // Carbone 4 2020
-    const kgCO2VehiclePerKg = 5.2 + 0.4
-
-    const weightUnladenKg = 1600
-
-    return {
-      productionKgCO2e: Math.round(kgCO2VehiclePerKg * weightUnladenKg),
-      usageKgCO2e: Math.round(15840 / 150000 * totalDistanceKm)
-    }
-    return {
-      productionKgCO2e: 3740,
-      usageKgCO2e: 15840 / 150000 * totalDistanceKm
-    }
-  }
 
   countryKgCO2PerKWh(country: Country): number {
     // Source GaBi Professional (from ADEME 90511)
@@ -51,7 +34,11 @@ export class FootprintEstimator {
         return this.countryKgCO2PerKWh(country) * efficiency * totalDistanceKm
       case Energy.Diesel:
       case Energy.Gasoline:
-        return 0
+        const emissionFactorkgCO2PerLiter = 2.7
+        if (!vehicle.combinedConsumptionWLTPLper100km) {
+          throw new Error('A gasoline or diesel vehicle must have its consumption defined!')
+        }
+        return vehicle.combinedConsumptionWLTPLper100km * emissionFactorkgCO2PerLiter * totalDistanceKm / 100
     }
   }
 

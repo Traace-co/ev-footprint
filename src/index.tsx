@@ -1,4 +1,3 @@
-import { Grommet } from 'grommet';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
@@ -12,9 +11,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <Grommet>
-        <App />
-      </Grommet>
+      <App />
     </BrowserRouter>
   </React.StrictMode>
 );

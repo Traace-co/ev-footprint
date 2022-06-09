@@ -10,10 +10,32 @@ export interface Vehicle {
   weightUnladenKg: number,
   batteryCapacitykWh?: number,
   rangeWLTPKm?: number
+  combinedConsumptionWLTPLper100km?: number
   energy: Energy
 }
 
 export const allVehicles: Vehicle[] = [
+  {
+    id: 'gasoline-e95',
+    name: 'Conventional Gasoline E95 Car',
+    weightUnladenKg: 1600,
+    combinedConsumptionWLTPLper100km: 8,
+    energy: Energy.Gasoline
+  },
+  {
+    id: 'light-gasoline-e95',
+    name: 'Light Gasoline E95 Car',
+    weightUnladenKg: 950,
+    combinedConsumptionWLTPLper100km: 6,
+    energy: Energy.Gasoline
+  },
+  {
+    id: 'volvo-xc90',
+    name: 'Volvo XC 90 B6 AWD',
+    weightUnladenKg: 1953,
+    combinedConsumptionWLTPLper100km: 12.5,
+    energy: Energy.Gasoline
+  },
   {
     id: 'tesla-model-s-long-range',
     name: 'Tesla Model S Long Range',
