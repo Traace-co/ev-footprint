@@ -1,33 +1,13 @@
-import { Select, Slider } from "antd"
+import { Select } from "antd"
 import React, { useState } from "react"
 import { Country } from "../db/country"
 import { allVehicles } from "../db/vehicle"
-import { FootprintEstimator } from "../footprintEstimator/footprintEstimator"
+import { Parameter } from "../design/Parameter"
 import { BarChart } from "./BarChart"
-
-
-function Parameter(props: { title: string, children: React.ReactNode }) {
-  return <div className="flex flex-row gap-2">
-    <div>
-      {props.title}
-    </div>
-    <div>
-      {props.children}
-    </div>
-  </div>
-}
+import { LineChart } from "./LineChart"
 
 export function Comparison() {
-  const [totalDistanceKm, setTotalDistanceKm] = useState(200000)
   const [country, setCountry] = useState<Country>(Country.France)
-
-  const footprintEstimator = new FootprintEstimator()
-  const footprints = allVehicles.map(vehicle => (
-    {
-      name: vehicle.name,
-      footprint: footprintEstimator.estimate({ vehicle, totalDistanceKm, country })
-    }
-  ))
 
   function CountryOption(props: { country: Country }) {
     function countryName() {
@@ -57,24 +37,15 @@ export function Comparison() {
             }
           </Select>
         </Parameter>
-        <Parameter title='Total distance (km)'>
-          <div className="flex flex-row gap-2">
-            <Slider
-              className="w-96"
-              min={0}
-              max={500000}
-              step={10000}
-              defaultValue={totalDistanceKm}
-              onChange={event => setTotalDistanceKm(event)}
-            />
-            <div className="flex flex-row gap-1">
-              <div>{totalDistanceKm}</div>
-              <span>km</span>
-            </div>
-          </div>
-        </Parameter>
       </div>
     </div>
-    <BarChart footprints={footprints} />
+    <div className="grid grid-cols-2 gap-4">
+      <BarChart
+        country={country}
+        vehicles={allVehicles} />
+      <LineChart
+        country={country}
+        vehicles={allVehicles} />
+    </div>
   </div >
 }
