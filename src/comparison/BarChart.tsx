@@ -36,10 +36,12 @@ export function BarChart(props: {
   ))
 
   const options = {
-    indexAxis: 'y' as const,
     responsive: true,
     scales: {
       x: {
+        stacked: true
+      },
+      y: {
         stacked: true,
         min: 0,
         max: 160000,
@@ -48,9 +50,6 @@ export function BarChart(props: {
           text: 'Emissions of the vehicle (kgCO2e)'
         },
       },
-      y: {
-        stacked: true,
-      },
     },
     plugins: {
       tooltip: {
@@ -58,7 +57,10 @@ export function BarChart(props: {
           beforeBody: (context: any) => {
             const footprint = footprints[context[0].dataIndex]
             const totalEmissions = footprint.footprint.totalKgCO2e
-            return `Total emissions of the vehicle: ${totalEmissions.toLocaleString()} kgCO2e`
+            return `Total emissions of the vehicle: ${Math.round(totalEmissions).toLocaleString()} kgCO2e`
+          },
+          label: function (context: any) {
+            return `${context.dataset.label}: ${Math.round(context.parsed.y).toLocaleString()} kgCO2e`
           }
         }
       },
@@ -132,6 +134,7 @@ export function BarChart(props: {
     <Parameter title='Total distance (km)'>
       <div className="flex flex-row gap-2 w-full">
         <Slider
+          style={{ zIndex: -1 }}
           className="flex-grow"
           min={0}
           max={500000}
