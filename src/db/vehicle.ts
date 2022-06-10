@@ -53,6 +53,22 @@ export const allVehicles: Vehicle[] = [
     energy: Energy.Electricity
   },
   {
+    id: 'tesla-model-3',
+    name: 'Tesla Model 3',
+    weightUnladenKg: 1835,
+    batteryCapacitykWh: 60,
+    rangeWLTPKm: 495,
+    energy: Energy.Electricity
+  },
+  {
+    id: 'tesla-model-3-lr-dual-motor',
+    name: 'Tesla Model 3 Long Range Dual Motor',
+    weightUnladenKg: 1919,
+    batteryCapacitykWh: 82,
+    rangeWLTPKm: 614,
+    energy: Energy.Electricity
+  },
+  {
     id: 'tesla-model-s-long-range',
     name: 'Tesla Model S Long Range',
     weightUnladenKg: 2069,
