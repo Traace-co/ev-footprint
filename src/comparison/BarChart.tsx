@@ -134,7 +134,6 @@ export function BarChart(props: {
     <Parameter title='Total distance (km)'>
       <div className="flex flex-row gap-2 w-full">
         <Slider
-          style={{ zIndex: -1 }}
           className="flex-grow"
           min={0}
           max={500000}
