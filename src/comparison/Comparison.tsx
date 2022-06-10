@@ -67,7 +67,7 @@ export function Comparison() {
   }
 
   return <div className="flex flex-col items-center w-full">
-    <div style={{ minWidth: '300px' }}>
+    <div style={{ minWidth: '300px', maxWidth: '600px' }}>
 
       <div className="mb-4 sticky top-0 backdrop-blur py-4"           style={{ zIndex: 100 }}>
         <h2 className="text-xl font-medium mb-2">
