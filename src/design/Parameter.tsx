@@ -1,6 +1,6 @@
 export function Parameter(props: { title: string, children: React.ReactNode }) {
-  return <div className="flex flex-row items-center gap-2">
-    <div className="shrink-0">
+  return <div className="flex flex-col gap-1 text-gray-600">
+    <div className="text-xs font-medium">
       {props.title}
     </div>
     <div className="flex-grow">
