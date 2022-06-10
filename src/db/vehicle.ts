@@ -24,7 +24,7 @@ export const allVehicles: Vehicle[] = [
   },
   {
     id: 'gasoline-e95',
-    name: 'Conventional Gasoline E95 Car',
+    name: 'Typical Gasoline E95 Car',
     weightUnladenKg: 1600,
     combinedConsumptionWLTPLper100km: 7,
     energy: Energy.Gasoline
@@ -42,6 +42,14 @@ export const allVehicles: Vehicle[] = [
     weightUnladenKg: 950,
     batteryCapacitykWh: 26.8,
     rangeWLTPKm: 225,
+    energy: Energy.Electricity
+  },
+  {
+    id: 'electric-car',
+    name: 'Typical Electric Car',
+    weightUnladenKg: 1800,
+    batteryCapacitykWh: 55,
+    rangeWLTPKm: 350,
     energy: Energy.Electricity
   },
   {

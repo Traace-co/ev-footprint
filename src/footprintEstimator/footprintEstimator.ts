@@ -62,10 +62,10 @@ export class FootprintEstimator {
     }
 
     const result = {
-      productionWithoutBatteryKgCO2e: Math.round(kgCO2VehiclePerKg * vehicle.weightUnladenKg),
-      batteryProductionKgCO2e: Math.round(batteryProductionKgCO2e),
-      endOfLifeKgCO2e: Math.round(model.endOfLifekgCO2PerKg * vehicle.weightUnladenKg),
-      usageKgCO2e: Math.round(this.computeUsageKgCO2e(params)),
+      productionWithoutBatteryKgCO2e: kgCO2VehiclePerKg * vehicle.weightUnladenKg,
+      batteryProductionKgCO2e: batteryProductionKgCO2e,
+      endOfLifeKgCO2e: model.endOfLifekgCO2PerKg * vehicle.weightUnladenKg,
+      usageKgCO2e: this.computeUsageKgCO2e(params),
     }
     return {
       ...result,

@@ -1,3 +1,4 @@
+import { Typography } from 'antd';
 import {
   BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, LineElement, PointElement, Title,
   Tooltip
@@ -29,7 +30,7 @@ export function LineChart(props: {
   const options = {
     responsive: true,
     elements: {
-      point:{
+      point: {
         radius: 4,
         pointStyle: 'line'
       }
@@ -75,8 +76,38 @@ export function LineChart(props: {
     )),
   }
 
+  const vehicle1 = vehicles[0]
+  const vehicle1FixedValue = footprintEstimator.estimate({ vehicle: vehicle1, country, totalDistanceKm: 0 }).totalKgCO2e
+  const vehicle1Coefficient = footprintEstimator.estimate({ vehicle: vehicle1, country, totalDistanceKm: 1 }).totalKgCO2e - vehicle1FixedValue
+
+  const vehicle2 = vehicles[1]
+  const vehicle2FixedValue = footprintEstimator.estimate({ vehicle: vehicle2, country, totalDistanceKm: 0 }).totalKgCO2e
+  const vehicle2Coefficient = footprintEstimator.estimate({ vehicle: vehicle2, country, totalDistanceKm: 1 }).totalKgCO2e - vehicle2FixedValue
+
+  const threshold = (vehicle2FixedValue - vehicle1FixedValue) / (vehicle1Coefficient - vehicle2Coefficient)
+
+  let maxVehicle: Vehicle
+  let minVehicle: Vehicle
+  if (threshold > 0) {
+    maxVehicle = vehicle1FixedValue > vehicle2FixedValue ? vehicle2 : vehicle1
+    minVehicle = vehicle1FixedValue < vehicle2FixedValue ? vehicle2 : vehicle1
+  } else {
+    maxVehicle = vehicle1FixedValue > vehicle2FixedValue ? vehicle1 : vehicle2
+    minVehicle = vehicle1FixedValue < vehicle2FixedValue ? vehicle1 : vehicle2
+  }
+
   return <div
     style={props.style} className={props.className}>
+    <Typography.Paragraph>
+      ✅ <span className='italic'>
+        {threshold < 0 ?
+          `A ${minVehicle.name} is always better for the environment than a ${maxVehicle.name}.`
+          :
+          `A ${minVehicle.name} starts to be better for the climate than a ${maxVehicle.name} after ${Math.round(threshold).toLocaleString()} km.`
+        }
+      </span>
+    </Typography.Paragraph>
+
     <Line
       options={options} data={data} />
   </div>

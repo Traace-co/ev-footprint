@@ -1,4 +1,4 @@
-import { Slider } from 'antd';
+import { Slider, Typography } from 'antd';
 import {
   BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title,
   Tooltip
@@ -100,11 +100,35 @@ export function BarChart(props: {
         data: endOfLifeData,
         backgroundColor: 'rgb(150, 11, 190)',
       }
-    ],
-  };
+    ]
+  }
+
+  const maxFootprint = footprints.reduce((a, b) => a.footprint.totalKgCO2e < b.footprint.totalKgCO2e ? b : a)
+  const minFootprint = footprints.reduce((a, b) => a.footprint.totalKgCO2e < b.footprint.totalKgCO2e ? a : b)
+  const ratio = maxFootprint.footprint.totalKgCO2e / minFootprint.footprint.totalKgCO2e
+
+  const maxUsageFootprint = footprints.reduce((a, b) => a.footprint.usageKgCO2e < b.footprint.usageKgCO2e ? b : a)
+  const minUsageFootprint = footprints.reduce((a, b) => a.footprint.usageKgCO2e < b.footprint.usageKgCO2e ? a : b)
+  const usageRatio = maxUsageFootprint.footprint.usageKgCO2e / minUsageFootprint.footprint.usageKgCO2e
+
 
   return <div
     style={props.style} className={props.className}>
+
+    <Typography.Paragraph>
+      ✅ <span className='italic'>
+        {`At the end of their life (${totalDistanceKm.toLocaleString()} km), a ${minFootprint.name} will have emitted `}
+        <strong>{`${ratio.toPrecision(2)}x`}</strong>{` less CO2 than a ${maxFootprint.name}.`}
+      </span>
+    </Typography.Paragraph>
+
+    <Typography.Paragraph>
+      ✅ <span className='italic'>
+        {`A ${minUsageFootprint.name} emits `}
+        <strong>{`${usageRatio.toPrecision(2)}x`}</strong>
+        {` less CO2 during its usage phase than a ${maxFootprint.name}.`}
+      </span>
+    </Typography.Paragraph>
     <Parameter title='Total distance (km)'>
       <div className="flex flex-row gap-2 w-full">
         <Slider
