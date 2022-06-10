@@ -44,7 +44,7 @@ export function BarChart(props: {
       y: {
         stacked: true,
         min: 0,
-        max: 160000,
+        max: Math.max(60000, ...footprints.map(f => Math.ceil(f.footprint.totalKgCO2e/10000)*10000)),
         title: {
           display: true,
           text: 'Emissions of the vehicle (kgCO2e)'

@@ -1,10 +1,10 @@
 import { InfoCircleTwoTone } from "@ant-design/icons"
 import { Select, Tooltip, Typography } from "antd"
-import React, { ReactNode } from "react"
+import React, { ReactNode, useEffect, useState } from "react"
 import { useSearchParams } from "react-router-dom"
 import { ClassType } from "../db/classType"
 import { Country } from "../db/country"
-import { allVehicles } from "../db/vehicle"
+import { parseAllVehicles, Vehicle } from "../db/vehicle"
 import { Parameter } from "../design/Parameter"
 import { BarChart } from "./BarChart"
 import { LineChart } from "./LineChart"
@@ -40,6 +40,18 @@ export function Comparison() {
   const vehicle2Key = 'vehicle2'
   const vehicle2Id = searchParams.get(vehicle2Key) ?? 'electric-car'
 
+  const [allVehicles, setAllVehicles] = useState<Vehicle[]>()
+
+  useEffect(() => {
+    if (allVehicles) { return }
+
+    parseAllVehicles().then(vehicles => setAllVehicles(vehicles))
+  })
+
+  if (!allVehicles) { return null }
+
+  console.log(allVehicles)
+
   const vehicle1 = allVehicles.find(vehicle => vehicle.id === vehicle1Id)!
   const vehicle2 = allVehicles.find(vehicle => vehicle.id === vehicle2Id)!
 
@@ -52,7 +64,7 @@ export function Comparison() {
     }
   }
 
-  function vehiclesForClassType(classType: ClassType) {
+  function vehiclesForClassType(classType: ClassType, allVehicles: Vehicle[]) {
     return allVehicles.filter(vehicle => {
       switch (classType) {
         case ClassType.Light:
@@ -69,7 +81,7 @@ export function Comparison() {
   return <div className="flex flex-col items-center w-full">
     <div style={{ minWidth: '300px', maxWidth: '600px' }}>
 
-      <div className="mb-4 sticky top-0 backdrop-blur py-4"           style={{ zIndex: 100 }}>
+      <div className="mb-4 sticky top-0 backdrop-blur py-4" style={{ zIndex: 100 }}>
         <h2 className="text-xl font-medium mb-2">
           Select your car
         </h2>
@@ -91,7 +103,7 @@ export function Comparison() {
                   {
                     [ClassType.Light, ClassType.Regular, ClassType.Heavy].map(classType => (
                       <Select.OptGroup label={classTypeName(classType)}>
-                        {vehiclesForClassType(classType).map(vehicle => (
+                        {vehiclesForClassType(classType, allVehicles).map(vehicle => (
                           <Select.Option value={vehicle.id} key={vehicle.id}>
                             {vehicle.name}
                           </Select.Option>
@@ -106,20 +118,20 @@ export function Comparison() {
           <div className="col-span-2 space-y-1">
             <Parameter title='Country'>
               <div className="flex flew-row items-center gap-2">                <Select
-                  style={{ width: '200px' }}
-                  value={country}
-                  onChange={option => {
-                    searchParams.set(countryKey, option)
-                    setSearchParams(searchParams)
-                  }
-                  }
-                >
-                  {
-                    [Country.France, Country.Germany].map(option => <Select.Option value={option} key={option}>
-                      <CountryOption country={option} />
-                    </Select.Option>)
-                  }
-                </Select>
+                style={{ width: '200px' }}
+                value={country}
+                onChange={option => {
+                  searchParams.set(countryKey, option)
+                  setSearchParams(searchParams)
+                }
+                }
+              >
+                {
+                  [Country.France, Country.Germany].map(option => <Select.Option value={option} key={option}>
+                    <CountryOption country={option} />
+                  </Select.Option>)
+                }
+              </Select>
                 <Tooltip title={<div className="text-xs italic">
                   Some countries have a cleaner electricity mix than others. This will impact the emissions of an electric car.
                 </div>}>

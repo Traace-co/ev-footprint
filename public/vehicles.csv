@@ -1,0 +1,10 @@
+id,name,weightUnladenKg,batteryCapacitykWh,rangeWLTPKm,combinedConsumptionWLTPLper100km,energy
+light-gasoline-e95,Light Gasoline E95 Car,950,,,5,Gasoline
+gasoline-e95,Typical Gasoline E95 Car,1600,,,7,Gasoline
+bmw-x5,BMW X5 xDrive40i,2175,,,"8,9",Gasoline
+dacia-spring-electric,Dacia Spring Electric Car,950,"26,8",225,,Electricity
+electric-car,Typical Electric Car,1800,55,350,,Electricity
+tesla-model-3,Tesla Model 3,1835,60,495,,Electricity
+tesla-model-3-lr-dual-motor,Tesla Model 3 Long Range Dual Motor,1919,82,614,,Electricity
+tesla-model-s-lr,Tesla Model S Long Range,2069,100,652,,Electricity
+tesla-model-x-lr,Tesla Model X Long Range,2352,100,580,,Electricity

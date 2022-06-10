@@ -39,7 +39,7 @@ export class FootprintEstimator {
       case Energy.Gasoline:
         const emissionFactorkgCO2PerLiter = 2.7
         if (!vehicle.combinedConsumptionWLTPLper100km) {
-          throw new Error('A gasoline or diesel vehicle must have its consumption defined!')
+          throw new Error('A gasoline or diesel vehicle must have its consumption defined! Error for vehicle ' + JSON.stringify(vehicle) + "consumption: "+vehicle.combinedConsumptionWLTPLper100km)
         }
         return vehicle.combinedConsumptionWLTPLper100km * emissionFactorkgCO2PerLiter * totalDistanceKm / 100
     }

@@ -1,3 +1,5 @@
+import { parse } from 'csv-parse/browser/esm/sync'
+
 export enum Energy {
   Gasoline = 'Gasoline',
   Diesel = 'Diesel',
@@ -14,74 +16,25 @@ export interface Vehicle {
   energy: Energy
 }
 
-export const allVehicles: Vehicle[] = [
-  {
-    id: 'light-gasoline-e95',
-    name: 'Light Gasoline E95 Car',
-    weightUnladenKg: 950,
-    combinedConsumptionWLTPLper100km: 5,
-    energy: Energy.Gasoline
-  },
-  {
-    id: 'gasoline-e95',
-    name: 'Typical Gasoline E95 Car',
-    weightUnladenKg: 1600,
-    combinedConsumptionWLTPLper100km: 7,
-    energy: Energy.Gasoline
-  },
-  {
-    id: 'bmw-x5',
-    name: 'BMW X5 xDrive40i',
-    weightUnladenKg: 2175,
-    combinedConsumptionWLTPLper100km: 8.9,
-    energy: Energy.Gasoline
-  },
-  {
-    id: 'dacia-spring-electric',
-    name: 'Dacia Spring Electric',
-    weightUnladenKg: 950,
-    batteryCapacitykWh: 26.8,
-    rangeWLTPKm: 225,
-    energy: Energy.Electricity
-  },
-  {
-    id: 'electric-car',
-    name: 'Typical Electric Car',
-    weightUnladenKg: 1800,
-    batteryCapacitykWh: 55,
-    rangeWLTPKm: 350,
-    energy: Energy.Electricity
-  },
-  {
-    id: 'tesla-model-3',
-    name: 'Tesla Model 3',
-    weightUnladenKg: 1835,
-    batteryCapacitykWh: 60,
-    rangeWLTPKm: 495,
-    energy: Energy.Electricity
-  },
-  {
-    id: 'tesla-model-3-lr-dual-motor',
-    name: 'Tesla Model 3 Long Range Dual Motor',
-    weightUnladenKg: 1919,
-    batteryCapacitykWh: 82,
-    rangeWLTPKm: 614,
-    energy: Energy.Electricity
-  },
-  {
-    id: 'tesla-model-s-long-range',
-    name: 'Tesla Model S Long Range',
-    weightUnladenKg: 2069,
-    batteryCapacitykWh: 100,
-    rangeWLTPKm: 652,
-    energy: Energy.Electricity
-  },
-  {
-    id: 'tesla-model-x-long-range',
-    name: 'Tesla Model X Long Range',
-    weightUnladenKg: 2352,
-    batteryCapacitykWh: 100,
-    rangeWLTPKm: 580,
-    energy: Energy.Electricity
-  }
-]
+function parseSanitizedFloat(value: string): number | undefined {
+  return value.length > 0 ? parseFloat(value.replace(',', '.')) : undefined
+}
+
+export async function parseAllVehicles(): Promise<Vehicle[]> {
+  const databaseString = await (await fetch('/vehicles.csv')).text()
+  const records = parse(databaseString, {
+    columns: true,
+    skip_empty_lines: true
+  })
+  return records.map((record: any) => {
+    return {
+      id: record.id,
+      name: record.name,
+      batteryCapacitykWh: parseSanitizedFloat(record.batteryCapacitykWh),
+      combinedConsumptionWLTPLper100km: parseSanitizedFloat(record.combinedConsumptionWLTPLper100km),
+      rangeWLTPKm: parseSanitizedFloat(record.rangeWLTPKm),
+      weightUnladenKg: parseSanitizedFloat(record.weightUnladenKg),
+      energy: record.energy as Energy
+    }
+  })
+}
