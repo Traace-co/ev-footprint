@@ -68,8 +68,8 @@ export function Comparison() {
   return <div className="flex flex-col items-center w-full">
     <div style={{ width: '600px' }}>
 
-      <div className="mb-4 sticky top-0 backdrop-blur p-4">
-        <h2 className="text-xl font-medium mb-4">
+      <div className="mb-4 sticky top-0 backdrop-blur py-4">
+        <h2 className="text-xl font-medium mb-2">
           Select your car
         </h2>
         <div className="grid grid-cols-2 gap-2">
