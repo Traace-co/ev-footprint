@@ -21,7 +21,7 @@ function parseSanitizedFloat(value: string): number | undefined {
 }
 
 export async function parseAllVehicles(): Promise<Vehicle[]> {
-  const databaseString = await (await fetch('/vehicles.csv')).text()
+  const databaseString = await (await fetch(process.env.PUBLIC_URL + '/vehicles.csv')).text()
   const records = parse(databaseString, {
     columns: true,
     skip_empty_lines: true
