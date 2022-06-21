@@ -20,7 +20,11 @@ export class FootprintEstimator {
       case Country.Germany:
         return 0.623
       case Country.France:
-        return 0.11
+        return 0.051
+      case Country.Europe:
+        return 0.306
+      case Country.Renewable:
+        return 0.018
       default:
         throw new Error(`Unknown country: ${country}`)
     }
@@ -39,7 +43,7 @@ export class FootprintEstimator {
       case Energy.Gasoline:
         const emissionFactorkgCO2PerLiter = 2.7
         if (!vehicle.combinedConsumptionWLTPLper100km) {
-          throw new Error('A gasoline or diesel vehicle must have its consumption defined! Error for vehicle ' + JSON.stringify(vehicle) + "consumption: "+vehicle.combinedConsumptionWLTPLper100km)
+          throw new Error('A gasoline or diesel vehicle must have its consumption defined! Error for vehicle ' + JSON.stringify(vehicle) + "consumption: " + vehicle.combinedConsumptionWLTPLper100km)
         }
         return vehicle.combinedConsumptionWLTPLper100km * emissionFactorkgCO2PerLiter * totalDistanceKm / 100
     }

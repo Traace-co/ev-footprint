@@ -1,6 +1,6 @@
 import { InfoCircleTwoTone } from "@ant-design/icons"
 import { Select, Tooltip, Typography } from "antd"
-import React, { ReactNode, useEffect, useState } from "react"
+import { ReactNode, useEffect, useState } from "react"
 import { useSearchParams } from "react-router-dom"
 import { ClassType } from "../db/classType"
 import { Country } from "../db/country"
@@ -23,6 +23,8 @@ function CountryOption(props: { country: Country }) {
     switch (props.country) {
       case Country.France: return '🇫🇷 France'
       case Country.Germany: return '🇩🇪 Germany'
+      case Country.Europe: return '🇪🇺 Europe'
+      case Country.Renewable: return '🌿 100% Renewable'
     }
   }
   return <div>{countryName()}</div>
@@ -32,7 +34,7 @@ export function Comparison() {
   const [searchParams, setSearchParams] = useSearchParams()
 
   const countryKey = 'country'
-  const country = searchParams.get(countryKey) as Country ?? Country.France
+  const country = searchParams.get(countryKey) as Country ?? Country.Europe
 
   const vehicle1Key = 'vehicle1'
   const vehicle1Id = searchParams.get(vehicle1Key) ?? 'gasoline-e95'
@@ -127,7 +129,10 @@ export function Comparison() {
                 }
               >
                 {
-                  [Country.France, Country.Germany].map(option => <Select.Option value={option} key={option}>
+                  [Country.Europe,
+                  Country.France,
+                  Country.Germany,
+                  Country.Renewable].map(option => <Select.Option value={option} key={option}>
                     <CountryOption country={option} />
                   </Select.Option>)
                 }

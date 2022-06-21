@@ -1,4 +1,6 @@
 export enum Country {
   Germany = 'de',
-  France = 'fr'
+  France = 'fr',
+  Europe = 'eu',
+  Renewable = 'renewable',
 }
