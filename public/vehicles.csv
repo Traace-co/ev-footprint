@@ -2,6 +2,6 @@ id,name,weightUnladenKg,batteryCapacitykWh,rangeWLTPKm,combinedConsumptionWLTPLp
 light-gasoline-e95,Light Gasoline E95 Car (B Segment),1145,,,"6,3",Gasoline
 gasoline-e95,Medium Gasoline E95 Car (D Segment),1600,,,7,Gasoline
 large-suv-gasoline-e95,Large Gasoline E95 SUV,2175,,,"8,9",Gasoline
-electric-car,Typical Electric Car (D Segment),1800,55,350,,Electricity
+electric-car,Medium Electric Car (D Segment),1800,55,350,,Electricity
 light-electric-car,Light Electric Car (B Segment),1333,50,"312,5",,Electricity
 large-suv-electric-car,Large Electric SUV,2352,100,580,,Electricity
