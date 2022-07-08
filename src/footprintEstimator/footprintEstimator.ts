@@ -1,7 +1,7 @@
 import { Country } from "../db/country"
 import { Energy, Vehicle } from "../db/vehicle"
-import { Carbone4Electric2020 } from "./model/carbone4Electric2020"
-import { Carbone4Gasoline2020 } from "./model/carbone4Gasoline2020"
+import { Carbone42020Gasoline } from "./model/carbone42020Gasoline"
+import { Carbone42020ICCT2021Electric } from "./model/carbone42020ICCT2021Electric"
 import { VehicleFootprintModel } from "./vehicleFootprintModel"
 
 export interface Footprint {
@@ -53,8 +53,8 @@ export class FootprintEstimator {
     const { vehicle } = params
 
     const model: VehicleFootprintModel = vehicle.energy === Energy.Electricity
-      ? new Carbone4Electric2020()
-      : new Carbone4Gasoline2020()
+      ? new Carbone42020ICCT2021Electric()
+      : new Carbone42020Gasoline()
 
     const kgCO2VehiclePerKg = model.productionkgCO2PerKg + model.endOfLifekgCO2PerKg
 
