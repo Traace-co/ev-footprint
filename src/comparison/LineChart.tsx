@@ -109,8 +109,8 @@ export function LineChart(props: {
     </Typography.Paragraph>
 
     <Line
-    className='mx-auto'
-      style={{ maxWidth: '600px' }}
+      className='mx-auto'
+      style={{ width: '500px' }}
       options={options} data={data} />
   </div>
 }

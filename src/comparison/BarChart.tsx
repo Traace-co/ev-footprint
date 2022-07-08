@@ -149,7 +149,7 @@ export function BarChart(props: {
     </Parameter>
     <Bar
       className='mx-auto'
-      style={{ maxWidth: '600px' }}
+      style={{ width: '500px' }}
       options={options} data={data} />
   </div>
 }
