@@ -51,10 +51,12 @@ export function LineChart(props: {
     },
     plugins: {
       legend: {
-        display: false
+        display: true,
+        position: 'right',
+        maxWidth: 400
       }
     }
-  }
+  } as any
 
   const distances: number[] = []
   for (let i = 0; i <= 400000; i += 40000) {
@@ -110,7 +112,7 @@ export function LineChart(props: {
 
     <Line
       className='mx-auto'
-      style={{ width: '500px' }}
+      style={{ width: '700px' }}
       options={options} data={data} />
   </div>
 }

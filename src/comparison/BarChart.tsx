@@ -65,9 +65,11 @@ export function BarChart(props: {
         }
       },
       legend: {
-        display: false
+        display: true,
+        position: 'right',
+        maxWidth: 400
       }
-    }
+    } as any
   };
 
   const labels = footprints.map(fp => fp.name)
@@ -149,7 +151,7 @@ export function BarChart(props: {
     </Parameter>
     <Bar
       className='mx-auto'
-      style={{ width: '500px' }}
+      style={{ width: '700px' }}
       options={options} data={data} />
   </div>
 }
