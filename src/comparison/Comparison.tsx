@@ -105,11 +105,14 @@ export function Comparison() {
                   {
                     [ClassType.Light, ClassType.Regular, ClassType.Heavy].map(classType => (
                       <Select.OptGroup label={classTypeName(classType)}>
-                        {vehiclesForClassType(classType, allVehicles).map(vehicle => (
-                          <Select.Option value={vehicle.id} key={vehicle.id}>
+                        {vehiclesForClassType(classType, allVehicles).map(vehicle => {
+                          // Prevent comparison of identical vehicles
+                          const disabled = vehicle.id === (parameter.key === vehicle1Key ? vehicle2Id : vehicle1Id)
+                          return <Select.Option value={vehicle.id} key={vehicle.id}
+                            disabled={disabled}>
                             {vehicle.name}
                           </Select.Option>
-                        ))}
+                        })}
                       </Select.OptGroup>)
                     )
                   }
