@@ -3,7 +3,7 @@ import {
   BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, LineElement, PointElement, Title,
   Tooltip
 } from 'chart.js';
-import React, { CSSProperties } from 'react';
+import { CSSProperties } from 'react';
 import { Line } from 'react-chartjs-2';
 import { Country } from '../db/country';
 import { Vehicle } from '../db/vehicle';
@@ -109,6 +109,8 @@ export function LineChart(props: {
     </Typography.Paragraph>
 
     <Line
+    className='mx-auto'
+      style={{ maxWidth: '600px' }}
       options={options} data={data} />
   </div>
 }

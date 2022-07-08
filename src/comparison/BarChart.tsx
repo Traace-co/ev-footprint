@@ -3,7 +3,7 @@ import {
   BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title,
   Tooltip
 } from 'chart.js';
-import React, { CSSProperties, useState } from 'react';
+import { CSSProperties, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { Country } from '../db/country';
 import { Vehicle } from '../db/vehicle';
@@ -44,7 +44,7 @@ export function BarChart(props: {
       y: {
         stacked: true,
         min: 0,
-        max: Math.max(60000, ...footprints.map(f => Math.ceil(f.footprint.totalKgCO2e/10000)*10000)),
+        max: Math.max(60000, ...footprints.map(f => Math.ceil(f.footprint.totalKgCO2e / 10000) * 10000)),
         title: {
           display: true,
           text: 'Emissions of the vehicle (kgCO2e)'
@@ -148,6 +148,8 @@ export function BarChart(props: {
       </div>
     </Parameter>
     <Bar
+      className='mx-auto'
+      style={{ maxWidth: '600px' }}
       options={options} data={data} />
   </div>
 }
