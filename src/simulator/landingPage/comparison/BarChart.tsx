@@ -32,7 +32,7 @@ export function BarChart(props: {
   const { Paragraph } = Typography
 
   const footprintEstimator = new FootprintEstimator()
-  const { footprints, minFootprint, maxFootprint, usageRatio } = footprintEstimator.computeEmissions({
+  const { footprints, minUsageFootprint, maxUsageFootprint, usageRatio } = footprintEstimator.computeEmissions({
     vehicles, totalDistanceKm, country
   })
 
@@ -145,13 +145,15 @@ export function BarChart(props: {
   return <div
     style={props.style} className={props.className}>
 
-    <Paragraph>
-      <span className=''>
-        {`A ${minFootprint.name} emits `}
-        <strong>{`${usageRatio.toPrecision(2)}x less CO2`}</strong>
-        {` during its usage phase than a ${maxFootprint.name}.`}
-      </span>
-    </Paragraph>
+    {!isNaN(usageRatio) &&
+      <Paragraph>
+        <span className=''>
+          {`A ${minUsageFootprint.name} emits `}
+          <strong>{`${usageRatio.toPrecision(2)}x less CO2`}</strong>
+          {` during its usage phase than a ${maxUsageFootprint.name}.`}
+        </span>
+      </Paragraph>
+    }
     <div className='relative'>
       {/* https://www.chartjs.org/docs/latest/configuration/responsive.html#important-note */}
       <Bar
