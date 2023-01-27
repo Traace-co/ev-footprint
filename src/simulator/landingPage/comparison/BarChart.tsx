@@ -65,8 +65,8 @@ export function BarChart(props: {
         callbacks: {
           beforeBody: (context: any) => {
             const footprint = footprints[context[0].dataIndex]
-            const totalEmissions = footprint.footprint.totalKgCO2e
-            return `Total emissions of the vehicle: ${Math.round(totalEmissions).toLocaleString()} tCO2e`
+            const totalEmissionstCO2e = footprint.footprint.totalKgCO2e / 1000
+            return `Total emissions of the vehicle: ${(Math.round(totalEmissionstCO2e * 10) / 10).toLocaleString()} tCO2e`
           },
           label: function (context: any) {
             return `${context.dataset.label}: ${Math.round(context.parsed.y).toLocaleString()} tCO2e`
