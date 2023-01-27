@@ -1,10 +1,12 @@
 import { InfoCircleTwoTone } from "@ant-design/icons"
 import { Select, Slider, Tooltip } from "antd"
 import { useContext, useState } from "react"
+import { Trans } from "react-i18next"
 import { useSearchParams } from "react-router-dom"
 import { secondaryBackgroundColor } from "../../../design/colors"
 import { Parameter } from "../../../design/Parameter"
 import { StickyCollapse } from "../../../utils/StickyCollapse"
+import { useTypedTranslation } from "../../../utils/translation-codegen"
 import { VehicleTitle } from "../../../utils/VehicleTitle"
 import { ClassType } from "../../db/classType"
 import { allCountries, Country } from "../../db/country"
@@ -43,6 +45,8 @@ function autoDetectCountryCode() {
 export function Comparison() {
   const [searchParams, setSearchParams] = useSearchParams()
 
+  const { t } = useTypedTranslation()
+
   const { allVehicles } = useContext(VehicleContext)
 
   const countryKey = 'country'
@@ -61,9 +65,9 @@ export function Comparison() {
 
   function classTypeName(classType: ClassType) {
     switch (classType) {
-      case ClassType.Light: return 'Light'
-      case ClassType.Regular: return 'Regular'
-      case ClassType.Heavy: return 'Heavy'
+      case ClassType.Light: return t('vehicle.class.light')
+      case ClassType.Regular: return t('vehicle.class.regular')
+      case ClassType.Heavy: return t('vehicle.class.heavy')
       default: return ''
     }
   }
@@ -94,8 +98,8 @@ export function Comparison() {
         <StickyCollapse>
           <div className="flex flex-col gap-2 rounded-md p-4 text-xl backdrop-blur" style={{ backgroundColor: secondaryBackgroundColor }}>
             <div className="flex flex-wrap gap-2">
-              {[{ title: 'Car #1', key: vehicle1Key, value: vehicle1Id },
-              { title: 'Car #2', key: vehicle2Key, value: vehicle2Id }
+              {[{ title: t('landing_page.settings.car_1'), key: vehicle1Key, value: vehicle1Id },
+              { title: t('landing_page.settings.car_2'), key: vehicle2Key, value: vehicle2Id }
               ].map(parameter => (
                 <Parameter title={parameter.title} key={parameter.key}>
                   <Select
@@ -125,7 +129,7 @@ export function Comparison() {
                 </Parameter>
               ))}
             </div>
-            <Parameter title='Country'>
+            <Parameter title={t('landing_page.settings.country')}>
               <div className="flex flew-row items-center gap-2 w-full">
                 <Select
                   style={{ width: '200px' }}
@@ -143,7 +147,7 @@ export function Comparison() {
                   }
                 </Select>
                 <Tooltip title={<div className="text-xs italic">
-                  Some countries have a cleaner electricity mix than others. This will impact the emissions of an electric car.
+                  {t('landing_page.settings.country_hint')}
                 </div>}>
                   <InfoCircleTwoTone />
                 </Tooltip>
@@ -179,6 +183,8 @@ function ComparisonDisplay(props: { totalDistanceKm: number, vehicle1Id: string,
   const { totalDistanceKm, vehicle1Id, vehicle2Id, country } = props
   const footprintContext = useContext(FootprintContext)
 
+  const { t } = useTypedTranslation()
+
   const { allVehicles } = useContext(VehicleContext)
 
   if (!footprintContext) { return null } // Should not happen
@@ -196,7 +202,7 @@ function ComparisonDisplay(props: { totalDistanceKm: number, vehicle1Id: string,
     <SimulatorSection
       level={2}
       icon={headerIcon3}
-      title="Comparison results">
+      title={t('landing_page.results.title')}>
       <div>
         <div className='flex flex-row items-center gap-8 pb-8'>
           <div className='text-3xl font-medium'>
@@ -204,16 +210,26 @@ function ComparisonDisplay(props: { totalDistanceKm: number, vehicle1Id: string,
           </div>
           <div className='py-4'>
             <div>
-              {`At the end of their life (${totalDistanceKm.toLocaleString()} km), a ${minFootprint.name}`}
+              {t('landing_page.results.summary_1', {
+                totalDistanceKm: totalDistanceKm.toLocaleString(),
+                minFootprintVehicleName: minFootprint.name
+              })}
             </div>
             <div>
-              will have emitted <strong>{`${ratio.toPrecision(2)}x less CO2`}</strong>{` than a ${maxFootprint.name}.`}
+              <Trans
+                i18nKey='landing_page.results.summary_2'
+                values={{
+                  co2Ratio: ratio.toPrecision(2),
+                  maxFootprintVehicleName: maxFootprint.name
+                }}
+                components={[<strong />]}
+              />
             </div>
           </div>
         </div>
         <SimulatorSection
           level={3}
-          title={<BackgroundTitle title={'Breakdown of emissions'} icon={bubble2} />}>
+          title={<BackgroundTitle title={t('landing_page.results.breakdown.title')} icon={bubble2} />}>
           <BarChart
             totalDistanceKm={totalDistanceKm}
             country={country}
@@ -221,7 +237,7 @@ function ComparisonDisplay(props: { totalDistanceKm: number, vehicle1Id: string,
         </SimulatorSection>
         <SimulatorSection
           level={3}
-          title={<BackgroundTitle title={'Emissions over time'} icon={bubble3} />}>
+          title={<BackgroundTitle title={t('landing_page.results.emissions_over_time.title')} icon={bubble3} />}>
           <LineChart
             country={country}
             vehicles={[vehicle1, vehicle2]} />

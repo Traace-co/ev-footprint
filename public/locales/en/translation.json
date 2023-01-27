@@ -1,0 +1,74 @@
+{
+  "menu": {
+    "title": "EV Footprint",
+    "simulator": "Simulator",
+    "methodology": "Methodology",
+    "about": "About",
+    "github": "View on GitHub"
+  },
+  "footer": {
+    "built_with": "Built with 💚 by"
+  },
+  "landing_page": {
+    "title": "Should you switch to an electric vehicle?",
+    "description": "This simulator is based on the latest studies and we built it to:",
+    "description_list_1": "simply compare carbon emissions through their lifecycle of most common types of cars.",
+    "description_list_2": "break down misconceptions about the electric car.",
+    "description_list_3": "help you estimate if you should switch to an electric vehicle.",
+    "settings": {
+      "title": "Select vehicles and adjust parameters",
+      "car_1": "Car #1",
+      "car_2": "Car #2",
+      "country": "Country",
+      "country_hint": "Some countries have a cleaner electricity mix than others. This will impact the emissions of an electric car.",
+      "total_distance": "Total distance over lifetime of the vehicle (km)",
+      "kilometers": "{{count}} km"
+    },
+    "results": {
+      "title": "Comparison results",
+      "summary_1": "At the end of their life ({{totalDistanceKm}} km), a {{minFootprintVehicleName}}",
+      "summary_2": "will have emitted <0>{{co2Ratio}}x less CO2</0> than a {{maxFootprintVehicleName}}.",
+      "breakdown": {
+        "title": "Breakdown of emissions",
+        "summary": "A {{minFootprintVehicleName}} emits {{co2Ratio}} less CO2 during its usage phase than a {{maxFootprintVehicleName}}.",
+        "chart": {
+          "y_scale_title": "Emissions of the vehicle (tCO2e)",
+          "tooltip": "Total emissions of the vehicle: {{emissions}} tCO2e",
+          "vehicle_production": "Production (without battery)",
+          "battery_production": "Battery production",
+          "usage": "Usage",
+          "end_of_life": "End of life"
+        }
+      },
+      "emissions_over_time": {
+        "title": "Emissions over time",
+        "summary": "A {{minFootprintVehicleName}} starts to be better for the climate than a {{maxFootprintVehicleName}} after {{distance}} km.",
+        "chart": {
+          "x_scale_title": "Total distance in the life of the vehicle (km)"
+        }
+      },
+      "combinations": {
+        "title": "Test other combinations"
+      }
+    }
+  },
+  "methodology": {
+    "hypotheses": {
+      "title": "Hypotheses",
+      "description_1": "Our model was built thanks to the research of the French consultancy firm Carbone 4. For a full understanding of the hypotheses you can read the publication on their website: [EN] Road transportation: what alternative motorisations are suitable for the climate?.",
+      "description_2": "For the purpose of this simulator we used a simplified model, focusing on Gasoline and Electricity.",
+      "description_3": "For the estimation of the emissions caused by battery manufacturing, we used more up-to-date data from ICCT."
+    },
+    "open_source": {
+      "title": "Open source",
+      "description": "This simulator was released under an open-source license. Feel free to contribute or give feedback by creating issues on the {{githubLink}}!"
+    }
+  },
+  "vehicle": {
+    "class": {
+      "light": "Light",
+      "regular": "regular",
+      "heavy": "Heavy"
+    }
+  }
+}

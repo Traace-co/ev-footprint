@@ -8,6 +8,7 @@ import { Methodology } from './methodology/Methodology';
 import { routes } from './navigation/routes';
 import reportWebVitals from './reportWebVitals';
 import { LandingPage } from './simulator/landingPage/LandingPage';
+import './utils/i18n';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

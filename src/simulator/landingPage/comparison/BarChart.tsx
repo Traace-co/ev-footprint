@@ -7,6 +7,7 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { CSSProperties } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { useMediaQuery } from 'react-responsive';
+import { useTypedTranslation } from '../../../utils/translation-codegen';
 import { Country } from '../../db/country';
 import { Vehicle } from '../../db/vehicle';
 import { FootprintEstimator } from '../../footprintEstimator/footprintEstimator';
@@ -26,6 +27,8 @@ export function BarChart(props: {
   country: Country, vehicles: Vehicle[]
 }) {
   const { country, vehicles, totalDistanceKm } = props
+
+  const { t } = useTypedTranslation()
 
   const isBigScreen = useMediaQuery({ query: '(min-width: 640px)' }) // sm
 
@@ -56,7 +59,7 @@ export function BarChart(props: {
         max: Math.max(50, ...footprints.map(f => Math.ceil(f.footprint.totalKgCO2e / 10000) * 10)) + 10,
         title: {
           display: true,
-          text: 'Emissions of the vehicle (tCO2e)'
+          text: t('landing_page.results.breakdown.chart.y_scale_title')
         },
       },
     },
@@ -66,7 +69,7 @@ export function BarChart(props: {
           beforeBody: (context: any) => {
             const footprint = footprints[context[0].dataIndex]
             const totalEmissions = footprint.footprint.totalKgCO2e
-            return `Total emissions of the vehicle: ${Math.round(totalEmissions).toLocaleString()} tCO2e`
+            return t('landing_page.results.breakdown.chart.tooltip', { emissions: Math.round(totalEmissions).toLocaleString() })
           },
           label: function (context: any) {
             return `${context.dataset.label}: ${Math.round(context.parsed.y).toLocaleString()} tCO2e`
