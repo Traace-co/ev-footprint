@@ -160,7 +160,7 @@ export function Comparison() {
                   onChange={event => setTotalDistanceKm(event)}
                 />
                 <div className="flex flex-row gap-1">
-                  <div>{totalDistanceKm}</div>
+                  <div>{`${totalDistanceKm.toLocaleString()}`}</div>
                   <span>km</span>
                 </div>
               </div>
