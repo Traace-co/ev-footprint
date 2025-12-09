@@ -1,8 +1,8 @@
+import { VehicleTitle } from "@/utils/VehicleTitle";
+import Link from "next/link";
 import { useContext } from "react";
-import { Link } from "react-router-dom";
-import { VehicleTitle } from "../../../utils/VehicleTitle";
-import { Energy } from "../../db/vehicle";
 import { VehicleContext } from "../../db/VehicleProvider";
+import { Energy } from "../../db/vehicle";
 
 export function Combinations() {
   const { allVehicles } = useContext(VehicleContext)
@@ -13,7 +13,7 @@ export function Combinations() {
           || (vehicle1.energy === Energy.Electricity && v.id < vehicle1.id)) // Prevent duplicate comparisons
       ).map(vehicle2 => (
         <div key={`${vehicle1.id}-${vehicle2.id}`}>
-          <Link to={`/simulator?vehicle1=${vehicle1.id}&vehicle2=${vehicle2.id}`}>
+          <Link href={`/compare/${vehicle1.id}/${vehicle2.id}/`}>
             <p className="">
               <VehicleTitle vehicle={vehicle1} />
               <span className='inline-flex px-2'>

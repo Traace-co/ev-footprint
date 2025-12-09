@@ -1,23 +1,30 @@
+'use client'
+
+import { secondaryBackgroundColor } from "@/components/design/colors"
+import { Parameter } from "@/components/design/Parameter"
+import { StickyCollapse } from "@/utils/StickyCollapse"
+import { VehicleTitle } from "@/utils/VehicleTitle"
 import { InfoCircleTwoTone } from "@ant-design/icons"
 import { Select, Slider, Tooltip } from "antd"
+import { useRouter } from "next/navigation"
 import { useContext, useState } from "react"
-import { useSearchParams } from "react-router-dom"
-import { secondaryBackgroundColor } from "../../../design/colors"
-import { Parameter } from "../../../design/Parameter"
-import { StickyCollapse } from "../../../utils/StickyCollapse"
-import { VehicleTitle } from "../../../utils/VehicleTitle"
 import { ClassType } from "../../db/classType"
 import { allCountries, Country } from "../../db/country"
 import { Vehicle } from "../../db/vehicle"
 import { VehicleContext } from "../../db/VehicleProvider"
 import { FootprintContext, FootprintProvider } from "../../footprintEstimator/FootprintProvider"
-import headerIcon3 from '../headerIcon3.svg'
+import headerIcon3Img from '../headerIcon3.svg'
 import { SimulatorSection } from "../SimulatorSection"
 import { BarChart } from "./BarChart"
-import bubble1 from './bubble1.svg'
-import bubble2 from './bubble2.svg'
-import bubble3 from './bubble3.svg'
+import bubble1Img from './bubble1.svg'
+import bubble2Img from './bubble2.svg'
+import bubble3Img from './bubble3.svg'
 import { LineChart } from "./LineChart"
+
+const headerIcon3 = headerIcon3Img.src
+const bubble1 = bubble1Img.src
+const bubble2 = bubble2Img.src
+const bubble3 = bubble3Img.src
 
 function CountryOption(props: { country: Country }) {
   const { country: { name, emoji } } = props
@@ -40,24 +47,31 @@ function autoDetectCountryCode() {
   return 'eu'
 }
 
-export function Comparison() {
-  const [searchParams, setSearchParams] = useSearchParams()
+const DEFAULT_VEHICLE1 = 'gasoline-e95'
+const DEFAULT_VEHICLE2 = 'electric-car'
 
+interface ComparisonProps {
+  initialVehicle1Id?: string;
+  initialVehicle2Id?: string;
+}
+
+export function Comparison({
+  initialVehicle1Id = DEFAULT_VEHICLE1,
+  initialVehicle2Id = DEFAULT_VEHICLE2
+}: ComparisonProps = {}) {
+  const router = useRouter()
   const { allVehicles } = useContext(VehicleContext)
 
-  const countryKey = 'country'
-  const countryParam = searchParams.get(countryKey) ?? autoDetectCountryCode()
-  const country = allCountries.find(c => countryParam === c.id)
-
-  const vehicle1Key = 'vehicle1'
-  const vehicle1Id = searchParams.get(vehicle1Key) ?? 'gasoline-e95'
-
-  const vehicle2Key = 'vehicle2'
-  const vehicle2Id = searchParams.get(vehicle2Key) ?? 'electric-car'
-
+  const [countryId, setCountryId] = useState(autoDetectCountryCode)
+  const [vehicle1Id, setVehicle1Id] = useState(initialVehicle1Id)
+  const [vehicle2Id, setVehicle2Id] = useState(initialVehicle2Id)
   const [totalDistanceKm, setTotalDistanceKm] = useState(200000)
 
+  const country = allCountries.find(c => countryId === c.id)
 
+  function navigateToComparison(v1: string, v2: string) {
+    router.push(`/compare/${v1}/${v2}/`)
+  }
 
   function classTypeName(classType: ClassType) {
     switch (classType) {
@@ -83,7 +97,7 @@ export function Comparison() {
   }
 
   if (!country) {
-    console.error('Unable to find country with ID=' + countryParam)
+    console.error('Unable to find country with ID=' + countryId)
     return null
   }
   return <FootprintProvider
@@ -94,25 +108,21 @@ export function Comparison() {
         <StickyCollapse>
           <div className="flex flex-col gap-2 rounded-md p-4 text-xl backdrop-blur" style={{ backgroundColor: secondaryBackgroundColor }}>
             <div className="flex flex-wrap gap-2">
-              {[{ title: 'Car #1', key: vehicle1Key, value: vehicle1Id },
-              { title: 'Car #2', key: vehicle2Key, value: vehicle2Id }
-              ].map(parameter => (
-                <Parameter title={parameter.title} key={parameter.key}>
+              {[
+                { title: 'Car #1', value: vehicle1Id, onChange: (v: string) => { setVehicle1Id(v); navigateToComparison(v, vehicle2Id); } },
+                { title: 'Car #2', value: vehicle2Id, onChange: (v: string) => { setVehicle2Id(v); navigateToComparison(vehicle1Id, v); } }
+              ].map((parameter, idx) => (
+                <Parameter title={parameter.title} key={idx}>
                   <Select
                     className="w-full"
                     value={parameter.value}
-                    onChange={option => {
-                      searchParams.set(parameter.key, option)
-                      setSearchParams(searchParams)
-                    }
-                    }
+                    onChange={parameter.onChange}
                   >
                     {
                       [ClassType.Light, ClassType.Regular, ClassType.Heavy].map(classType => (
                         <Select.OptGroup label={classTypeName(classType)} key={classType}>
                           {vehiclesForClassType(classType, allVehicles).map(vehicle => {
-                            // Prevent comparison of identical vehicles
-                            const disabled = vehicle.id === (parameter.key === vehicle1Key ? vehicle2Id : vehicle1Id)
+                            const disabled = vehicle.id === (idx === 0 ? vehicle2Id : vehicle1Id)
                             return <Select.Option value={vehicle.id} key={vehicle.id}
                               disabled={disabled}>
                               <VehicleTitle vehicle={vehicle} />
@@ -130,11 +140,7 @@ export function Comparison() {
                 <Select
                   style={{ width: '200px' }}
                   value={country.id}
-                  onChange={option => {
-                    searchParams.set(countryKey, option)
-                    setSearchParams(searchParams)
-                  }
-                  }
+                  onChange={setCountryId}
                 >
                   {
                     allCountries.map(country => <Select.Option value={country.id} key={country.id}>
@@ -188,9 +194,6 @@ function ComparisonDisplay(props: { totalDistanceKm: number, vehicle1Id: string,
   const vehicle1 = allVehicles.find(vehicle => vehicle.id === vehicle1Id)!
   const vehicle2 = allVehicles.find(vehicle => vehicle.id === vehicle2Id)!
 
-  if (vehicle1 && vehicle2) {
-    document.title = `${vehicle1.name} vs ${vehicle2.name}`
-  }
 
   return <>
     <SimulatorSection

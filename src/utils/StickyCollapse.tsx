@@ -1,3 +1,5 @@
+'use client'
+
 import { Collapse } from "antd";
 import { ReactNode, useState } from "react";
 import headerIcon2 from '../simulator/landingPage/headerIcon2.svg';
@@ -26,7 +28,7 @@ export function StickyCollapse(props: { children: ReactNode }) {
           ghost
           expandIcon={({ isActive }) => (
             <div>
-              <img src={arrow}
+              <img src={arrow.src}
                 className='transition'
                 style={{ transform: isActive ? 'rotate(90deg)' : 'rotate(180deg)' }}
                 alt='' />
@@ -40,7 +42,7 @@ export function StickyCollapse(props: { children: ReactNode }) {
           <Collapse.Panel key='parameters'
             style={{ paddingLeft: '-20px' }}
             header={
-              <SectionTitle title='Select vehicles and adjust parameters' level={2} icon={headerIcon2} />
+              <SectionTitle title='Select vehicles and adjust parameters' level={2} icon={headerIcon2.src} />
             } >
             {props.children}
           </Collapse.Panel>

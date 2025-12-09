@@ -7,11 +7,11 @@ import gasolineIcon from './mediumGasoline.svg'
 export function iconSrcForEnergy(energy: Energy) {
   switch (energy) {
     case Energy.Gasoline:
-      return gasolineIcon
+      return gasolineIcon.src
     case Energy.Diesel:
-      return dieselIcon
+      return dieselIcon.src
     case Energy.Electricity:
-      return electricityIcon
+      return electricityIcon.src
   }
   assertUnreachable(energy)
 }

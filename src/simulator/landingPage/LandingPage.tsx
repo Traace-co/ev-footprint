@@ -1,16 +1,23 @@
+'use client'
+
 import { VehicleProvider } from "../db/VehicleProvider";
 import { Combinations } from "./combinations/Combinations";
 import { Comparison } from "./comparison/Comparison";
 import headerIcon1 from './headerIcon1.svg';
 import { SimulatorSection } from "./SimulatorSection";
 
-export function LandingPage() {
+interface LandingPageProps {
+  vehicle1Id?: string;
+  vehicle2Id?: string;
+}
+
+export function LandingPage({ vehicle1Id, vehicle2Id }: LandingPageProps = {}) {
   return <div className="flex flex-col text-xl">
     <div className="flex flex-col gap-4">
       <div className="mb-8">
         <SimulatorSection
           level={1}
-          icon={headerIcon1}
+          icon={headerIcon1.src}
           title='Should you switch to an electric vehicle?'>
           <div>
             This simulator is based on the latest studies and we built it to:
@@ -25,7 +32,7 @@ export function LandingPage() {
     </div>
     <VehicleProvider>
       <>
-        <Comparison />
+        <Comparison initialVehicle1Id={vehicle1Id} initialVehicle2Id={vehicle2Id} />
         <SimulatorSection
           level={2}
           title="Test other combinations">

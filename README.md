@@ -19,3 +19,19 @@ Yes. We believe that trust and transparency go together, and we want the model a
 ## How can I contribute?
 
 Just open an issue in the project and describe the issue that you are facing or the feature request that your suggest. The project administrators will discuss it with you.
+
+## Technical Overview
+
+Built with **Next.js 14** (App Router), **Ant Design 5**, **Tailwind CSS**, and **Chart.js**. Pages are in `app/`, components and simulator logic in `src/`.
+
+### Running Locally
+
+```bash
+npm install
+npm run dev        # Development at http://localhost:3000
+npm run build      # Production build (static export to ./out)
+```
+
+### Deployment
+
+Configured for GitHub Pages with static export. Push to `main` triggers automatic deployment via GitHub Actions.

@@ -1,4 +1,4 @@
-import { Energy } from "../simulator/db/vehicle"
+import { Energy } from "@/simulator/db/vehicle"
 
 export function colorFromEnergy(energy: Energy): string {
   switch (energy) {
