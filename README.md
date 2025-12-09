@@ -9,8 +9,8 @@ This simulator is based on the latest studies and we built it to:
 
 ## Who created this tool?
 
-This simulator was originally created as a side project by team members of [Traace](https://traace.co).
-Traace is developing a software platform to help companies of all sizes decarbonize faster and more efficiently, thanks to advanced data analysis and forecast models. And they are hiring!
+This simulator was originally created as a side project by team members of [Tennaxia](https://tennaxia.com).
+At Tennaxia, we help companies to effectively manage their sustainability, ESG, Carbon and EHS operations, measure their impact and achieve concrete progress.
 
 ## Is it really open source?
 

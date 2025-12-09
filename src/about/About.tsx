@@ -54,10 +54,10 @@ export function About() {
       Who created this tool?
     </Title>
     <Paragraph>
-      This simulator was originally created as a side project by team members of <a href="https://traace.co" target='_blank' rel="noreferrer">Traace</a>.
+      This simulator was originally created as a side project by team members of <a href="https://tennaxia.com" target='_blank' rel="noreferrer">Tennaxia</a>.
     </Paragraph>
     <Paragraph>
-      Traace is developing a software platform to help companies of all sizes decarbonize faster and more efficiently, thanks to advanced data analysis and forecast models. And they are <a href="https://traace.co/notre-equipe" target='_blank' rel="noreferrer">hiring</a>!
+      Tennaxia is developing software products to help companies of all sizes achieve their sustainability goals. And they are <a href="https://jobs.tennaxia.com" target='_blank' rel="noreferrer">hiring</a>!
     </Paragraph>
   </div>
 }
