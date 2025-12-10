@@ -1,6 +1,7 @@
 import { Spin } from "antd"
 import React, { useEffect, useState } from "react"
-import { parseAllVehicles, Vehicle } from "../db/vehicle"
+import { parseAllVehicles } from "../db/vehicle"
+import { Vehicle } from "../db/vehicleTypes"
 
 export interface VehicleProviderInterface {
   allVehicles: Vehicle[]

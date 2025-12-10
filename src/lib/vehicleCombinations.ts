@@ -1,4 +1,4 @@
-import { Energy, Vehicle } from "@/simulator/db/vehicle";
+import { Energy, Vehicle } from "@/simulator/db/vehicleTypes";
 import { parse } from "csv-parse/browser/esm/sync";
 
 // Parse vehicles synchronously from raw CSV string
@@ -58,4 +58,3 @@ export function getVehicleDisplayName(id: string): string {
 	const vehicle = getVehicleById(id);
 	return vehicle?.name ?? id;
 }
-

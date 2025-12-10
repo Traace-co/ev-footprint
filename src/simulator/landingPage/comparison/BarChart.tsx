@@ -8,7 +8,7 @@ import { CSSProperties } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { useMediaQuery } from 'react-responsive';
 import { Country } from '../../db/country';
-import { Vehicle } from '../../db/vehicle';
+import { Vehicle } from '../../db/vehicleTypes';
 import { FootprintEstimator } from '../../footprintEstimator/footprintEstimator';
 
 ChartJS.register(

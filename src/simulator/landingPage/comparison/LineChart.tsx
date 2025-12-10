@@ -1,3 +1,4 @@
+import { colorFromEnergy } from '@/components/design/colors';
 import { Typography } from 'antd';
 import {
   BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, LineElement, PointElement, Title,
@@ -6,9 +7,8 @@ import {
 import { CSSProperties } from 'react';
 import { Line } from 'react-chartjs-2';
 import { useMediaQuery } from 'react-responsive';
-import { colorFromEnergy } from '@/components/design/colors';
 import { Country } from '../../db/country';
-import { Vehicle } from '../../db/vehicle';
+import { Vehicle } from '../../db/vehicleTypes';
 import { FootprintEstimator } from '../../footprintEstimator/footprintEstimator';
 
 ChartJS.register(

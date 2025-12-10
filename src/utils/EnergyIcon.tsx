@@ -1,4 +1,4 @@
-import { Energy } from "../simulator/db/vehicle"
+import { Energy } from "../simulator/db/vehicleTypes"
 import { assertUnreachable } from './assertUnreachable'
 import dieselIcon from './mediumDiesel.svg'
 import electricityIcon from './mediumElectricity.svg'

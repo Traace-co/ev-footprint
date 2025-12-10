@@ -2,7 +2,7 @@ import { VehicleTitle } from "@/utils/VehicleTitle";
 import Link from "next/link";
 import { useContext } from "react";
 import { VehicleContext } from "../../db/VehicleProvider";
-import { Energy } from "../../db/vehicle";
+import { Energy } from "../../db/vehicleTypes";
 
 export function Combinations() {
   const { allVehicles } = useContext(VehicleContext)

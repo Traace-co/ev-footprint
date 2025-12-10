@@ -1,25 +1,6 @@
 import { withBasePath } from "@/lib/basePath";
 import { parse } from "csv-parse/browser/esm/sync";
-
-export enum Energy {
-	Gasoline = "Gasoline",
-	Diesel = "Diesel",
-	Electricity = "Electricity",
-}
-
-export interface Vehicle {
-	id: string;
-	name: string;
-	weightUnladenKg: number;
-	batteryCapacitykWh?: number;
-	averageRangeKm?: number;
-	averageConsumptionPer100km?: number;
-	energy: Energy;
-}
-
-function parseSanitizedFloat(value: string): number | undefined {
-	return value.length > 0 ? parseFloat(value.replace(",", ".")) : undefined;
-}
+import { Energy, parseSanitizedFloat, Vehicle } from "./vehicleTypes";
 
 export async function parseAllVehicles(): Promise<Vehicle[]> {
 	const databaseString = await (

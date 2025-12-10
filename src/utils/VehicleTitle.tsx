@@ -1,4 +1,4 @@
-import { Vehicle } from "../simulator/db/vehicle";
+import { Vehicle } from "../simulator/db/vehicleTypes";
 import { EnergyIcon } from "./EnergyIcon";
 
 export function VehicleTitle(props: { vehicle: Vehicle }) {
