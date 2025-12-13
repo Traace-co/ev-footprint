@@ -12,7 +12,7 @@
     "chart.js": "^3.8.2",
     "chartjs-plugin-datalabels": "^2.1.0",
     "csv-parse": "^5.3.0",
-    "next": "^14.2.0",
+    "next": "^14.2.35",
     "polished": "^4.2.2",
     "react": "^18.2.0",
     "react-chartjs-2": "^4.3.1",
