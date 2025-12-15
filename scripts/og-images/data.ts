@@ -32,7 +32,7 @@ export function loadVehiclesFromCsv(): Vehicle[] {
 }
 
 // Use EU average for OG images
-export const defaultCountry = allCountries.find((c) => c.id === "eu")!;
+export const defaultCountry = allCountries.find((c) => c.id === "fr")!;
 export const DEFAULT_TOTAL_DISTANCE_KM = 200000;
 
 // Reuse FootprintEstimator from the main codebase
