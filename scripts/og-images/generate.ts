@@ -2,13 +2,13 @@ import React from "react";
 import satori from "satori";
 import sharp from "sharp";
 import { Vehicle } from "../../src/simulator/db/vehicleTypes";
-import { OgImage } from "./components";
 import {
 	DEFAULT_TOTAL_DISTANCE_KM,
 	defaultCountry,
 	footprintEstimator,
 } from "./data";
 import { getVehicleById } from "./helpers";
+import { OgImage } from "./OgImage";
 
 export async function loadFont(): Promise<ArrayBuffer> {
 	const response = await fetch(
@@ -45,6 +45,7 @@ export async function generateOgImage(
 			footprint1,
 			footprint2,
 			logoBase64,
+			country: defaultCountry,
 		}),
 		{
 			width: 1200,
